@@ -34,6 +34,7 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -288,17 +289,27 @@ public class CheckingTask extends ThreadTask {
                 else if (respret == 1){
                     // newversion format: "1002003"
                     String newversion = jsonresp.getJSONObject("newversion").getString("version");
+                    String language = Locale.getDefault().getLanguage();
                     String releaseinfo = jsonresp.getJSONObject("newversion").getString("releaseinfo");
+                    String specificLanRelease = new String();
+                    try {
+                        JSONObject releaseJson = new JSONObject(releaseinfo);
+                        specificLanRelease = releaseJson.getString(language);
+                    }
+                    catch (JSONException e){
+                        Log.w(TAG, "releaseinfo not JsonObject");
+                        specificLanRelease = releaseinfo;
+                    }
                     sha256 = jsonresp.getJSONObject("updateinfo").getString("sha256");
                     zipUrl = jsonresp.getJSONObject("updateinfo").getString("url");
                     command = jsonresp.getJSONObject("updateinfo").getString("command");
                     Log.i(TAG, "Get newversion: " + newversion);
-                    Log.i(TAG, "Release info: " + releaseinfo);
+                    Log.i(TAG, "Release info: " + specificLanRelease);
                     VersionTransfer versionTrans = new VersionTransfer(Integer.parseInt(newversion));
                     String[] checkInfo = new String[5];
                     checkInfo[0] = sha256;
                     checkInfo[1] = zipUrl;
-                    checkInfo[2] = releaseinfo;
+                    checkInfo[2] = specificLanRelease;
                     checkInfo[3] = command;
                     checkInfo[4] = versionTrans.versionString;
                     mResult = checkInfo;
