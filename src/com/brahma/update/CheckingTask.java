@@ -44,6 +44,7 @@ import org.xml.sax.SAXException;
 import android.app.DownloadManager;
 import android.app.DownloadManager.Request;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -53,6 +54,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import java.util.Locale;
 import org.json.JSONObject;
@@ -355,15 +357,18 @@ public class CheckingTask extends ThreadTask {
             mPreferences.setSha256(result[0]);
             Intent intent= new Intent(mContext,DownloadActivity.class);
             intent.setAction(DownloadActivity.ACTION_DOWNLOAD);
-            notificationManager = (NotificationManager) mContext
-                    .getSystemService(Context.NOTIFICATION_SERVICE);
-            notification = new Notification(R.drawable.ic_title,
-                    mContext.getString(R.string.check_succeed), System.currentTimeMillis());
-            notification.flags |= Notification.FLAG_AUTO_CANCEL;
+            notificationManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel mChannel = new NotificationChannel("update_channel", "Update", notificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(mChannel);
             PendingIntent pi = PendingIntent.getActivity(mContext, 0, intent, 0);
-            notification.setLatestEventInfo(mContext, "Update",
-                    mContext.getString(R.string.check_succeed), pi);
-            notificationManager.notify(R.drawable.ic_title, notification);
+            notification = new NotificationCompat.Builder(mContext, "update_channel")
+                    .setContentTitle(mContext.getString(R.string.app_name))
+                    .setContentText(mContext.getString(R.string.check_succeed))
+                    .setWhen(System.currentTimeMillis())
+                    .setSmallIcon(R.drawable.ic_title)
+                    .setContentIntent(pi)
+                    .build();
+            notificationManager.notify(1, notification);
             mPreferences.setPackageDescriptor(result[2]);
         }
     }
