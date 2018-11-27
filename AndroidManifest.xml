@@ -31,7 +31,6 @@
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="com.brahma.update.SYSTEM_UPDATE" />
-                <action android:name="android.settings.SYSTEM_UPDATE_SETTINGS" />
             </intent-filter>
         </activity>
 
@@ -48,9 +47,9 @@
 
         <activity
             android:label="@string/app_name"
-            android:name=".DownloadActivity"
-            android:launchMode="singleTask" >
+            android:name=".DownloadActivity">
             <intent-filter >
+                <action android:name="android.settings.SYSTEM_UPDATE_SETTINGS" />
                 <action android:name="com.brahma.update.ACTION_CHECK" />
                 <action android:name="com.brahma.update.ACTION_DOWNLOAD" />
                 <category android:name="android.intent.category.DEFAULT"/>

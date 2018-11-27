@@ -28,6 +28,7 @@ import android.widget.Toast;
 public class DownloadActivity extends Activity {
 
     public static final String ACTION_CHECK = "com.brahma.update.ACTION_CHECK";
+    public static final String ACTION_SYSTEM_UPDATE = "android.settings.SYSTEM_UPDATE_SETTINGS";
 
     public static final String ACTION_DOWNLOAD = "com.brahma.update.ACTION_DOWNLOAD";
 
@@ -73,6 +74,7 @@ public class DownloadActivity extends Activity {
         unbindService(mConn);
         Log.v("DownloadActivity","transfer onDestroy");
     }
+
     private void setCheckView() {
         setContentView(R.layout.update_checking);
         mCheckProgress=(ProgressBar)findViewById(R.id.checking_progress);
@@ -80,6 +82,7 @@ public class DownloadActivity extends Activity {
         mCheckingStatus.setText(R.string.check_connecting);
         mQueryThread[0].start();
     }
+
     private String setStr(long size,int status){
       String str=null;
 	  long k= (size/1024);
@@ -157,7 +160,7 @@ public class DownloadActivity extends Activity {
             Intent extrasIntent = getIntent();
             String action = extrasIntent.getAction();
             boolean b = mServiceBinder.getTaskRunnningStatus(UpdateService.TASK_ID_DOWNLOAD) == ThreadTask.RUNNING_STATUS_UNSTART;
-            if (ACTION_CHECK.equals(action) && b) {
+            if ((ACTION_CHECK.equals(action) || ACTION_SYSTEM_UPDATE.equals(action)) && b) {
                 Intent intent = new Intent(DownloadActivity.this, UpdateService.class);
                 intent.putExtra(UpdateService.KEY_START_COMMAND,
                         UpdateService.START_COMMAND_START_CHECKING);
