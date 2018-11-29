@@ -43,7 +43,7 @@
                 android:text="@string/brahmaos_version" />
 
             <TextView
-                android:id="@+id/brahmaos_version_value"
+                android:id="@+id/uptodate_version_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/font_size_body" />

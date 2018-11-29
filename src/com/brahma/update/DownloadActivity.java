@@ -17,6 +17,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.SystemProperties;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ public class DownloadActivity extends Activity {
 
     private TextView mDescription;
     private TextView mNewVersion;
+    private TextView mCurVersion;
 
     private Button mCancel;
 
@@ -96,6 +98,14 @@ public class DownloadActivity extends Activity {
 	  }
 	  return str;
     }
+
+    private void setUndiscoverView(){
+        setContentView(R.layout.update_latest);
+        mCurVersion = (TextView) findViewById(R.id.uptodate_version_value);
+        String mCurVersionValue = SystemProperties.get("ro.build.version.brahmaos");
+        mCurVersion.setText(mCurVersionValue);
+    }
+
     private void setDownloadView() {
         setContentView(R.layout.update_download);
         mDescription = (TextView) findViewById(R.id.new_version_description);
@@ -302,8 +312,9 @@ public class DownloadActivity extends Activity {
                     mHandler.post(new Runnable() {
                         @Override
                         public void run() {
-                        	mCheckProgress.setVisibility(View.INVISIBLE);
-                            mCheckingStatus.setText(R.string.check_failed);
+                            setUndiscoverView();
+//                        	mCheckProgress.setVisibility(View.INVISIBLE);
+//                            mCheckingStatus.setText(R.string.check_failed);
                         }
                     });
                     break;
