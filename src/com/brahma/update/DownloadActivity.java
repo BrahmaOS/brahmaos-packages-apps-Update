@@ -5,6 +5,7 @@ import com.brahma.update.UpdateService.CheckBinder;
 import com.brahma.update.ui.InstallPackage;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.NotificationManager;
 import android.app.Service;
@@ -120,22 +121,24 @@ public class DownloadActivity extends Activity {
                 } else if (Integer.valueOf(R.string.download_resume).equals(tag)) {
                     mServiceBinder.setTaskResume(UpdateService.TASK_ID_DOWNLOAD);
                 } else if (Integer.valueOf(R.string.download_update).equals(tag)) {
-                    final Dialog dlg = new Dialog(DownloadActivity.this);
+                    final AlertDialog.Builder dlg = new AlertDialog.Builder(DownloadActivity.this);
                     dlg.setTitle(R.string.confirm_update);
                     LayoutInflater inflater = LayoutInflater.from(DownloadActivity.this);
                     InstallPackage dlgView = (InstallPackage) inflater.inflate(
                             R.layout.install_ota, null, false);
                     dlgView.setPackagePath(UpdateService.DOWNLOAD_OTA_PATH);
                     dlgView.deleteSource(true);
-                    dlg.setContentView(dlgView);
-                    dlg.findViewById(R.id.confirm_cancel).setOnClickListener(
+                    dlg.setView(dlgView);
+                    final AlertDialog alertDialog = dlg.show();
+
+//                                  Cancel Button Action
+                    dlgView.findViewById(R.id.confirm_cancel).setOnClickListener(
                             new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    dlg.dismiss();
+                                   alertDialog.dismiss();
                                 }
                             });
-                    dlg.show();
                 }
             }
         });

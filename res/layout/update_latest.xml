@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/latest_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/space_normal">
+
+        <ImageView
+        android:id="@+id/uptodate_icon"
+        android:layout_width="@dimen/icon_normal_size"
+        android:layout_height="@dimen/icon_normal_size"
+        android:layout_marginTop="@dimen/space_xlarge"
+        android:layout_marginLeft="@dimen/space_normal"
+        android:src="@drawable/update_icon"/>
+
+        <TextView
+        android:id="@+id/uptodate_version_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_normal"
+        android:layout_marginLeft="@dimen/space_normal"
+        android:textSize="@dimen/font_size_headline"
+        android:textStyle="bold"
+        android:text="@string/latest_version_title"/>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_normal"
+        android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/brahmaos_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_normal"
+                android:textSize="@dimen/font_size_body"
+                android:text="@string/brahmaos_version" />
+
+            <TextView
+                android:id="@+id/brahmaos_version_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_size_body" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

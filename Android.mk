@@ -7,6 +7,13 @@ LOCAL_DEX_PREOPT := false
 
 LOCAL_SRC_FILES := $(call all-java-files-under, src)
 
+LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res
+LOCAL_RESOURCE_DIR += frameworks/support/v7/appcompat/res
+
+LOCAL_AAPT_FLAGS := \
+    --auto-add-overlay \
+    --extra-packages android.support.v7.appcompat \
+
 LOCAL_PACKAGE_NAME := Update
 LOCAL_PRIVILEGED_MODULE := true
 

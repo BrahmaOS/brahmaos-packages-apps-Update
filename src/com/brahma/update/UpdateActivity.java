@@ -6,6 +6,7 @@ import com.brahma.update.ui.InstallPackage;
 import com.brahma.update.ui.UIController;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.Service;
 import android.content.ComponentName;
@@ -53,20 +54,22 @@ public class UpdateActivity extends Activity {
 	        Bundle bundle = data.getExtras();
 	        String file = bundle.getString("file");
 	        if (file != null) {
-	            final Dialog dlg = new Dialog(this);
+                AlertDialog.Builder dlg = new AlertDialog.Builder(UpdateActivity.this);
 	            dlg.setTitle(R.string.confirm_update);
 	            LayoutInflater inflater = LayoutInflater.from(this);
 	            InstallPackage dlgView = (InstallPackage) inflater.inflate(R.layout.install_ota, null,
 	                    false);
 	            dlgView.setPackagePath(file);
-	            dlg.setContentView(dlgView);
-	            dlg.findViewById(R.id.confirm_cancel).setOnClickListener(new View.OnClickListener() {
+	            dlg.setView(dlgView);
+                final AlertDialog alertDialog = dlg.show();
+
+//              Cancel Button Action
+                dlgView.findViewById(R.id.confirm_cancel).setOnClickListener(new View.OnClickListener() {
 	                @Override
 	                public void onClick(View v) {
-	                    dlg.dismiss();
+	                    alertDialog.dismiss();
 	                }
 	            });
-	            dlg.show();
 	        }
         }
     }
