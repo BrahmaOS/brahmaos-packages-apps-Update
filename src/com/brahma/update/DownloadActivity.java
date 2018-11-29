@@ -32,6 +32,7 @@ public class DownloadActivity extends Activity {
     public static final String ACTION_DOWNLOAD = "com.brahma.update.ACTION_DOWNLOAD";
 
     private TextView mDescription;
+    private TextView mNewVersion;
 
     private Button mCancel;
 
@@ -94,6 +95,7 @@ public class DownloadActivity extends Activity {
     private void setDownloadView() {
         setContentView(R.layout.update_download);
         mDescription = (TextView) findViewById(R.id.new_version_description);
+        mNewVersion = (TextView) findViewById(R.id.brahmaos_version_value);
         mCombineBtn = (Button) findViewById(R.id.download_pause_and_update);
         mCancel = (Button) findViewById(R.id.cancel);
         mProgress = (ProgressBar) findViewById(R.id.download_progress);
@@ -143,6 +145,7 @@ public class DownloadActivity extends Activity {
             }
         });
         mDescription.setText(mPreference.getPackageDescriptor().replace("\\n","\n"));
+        mNewVersion.setText(mPreference.getBrahmaosNewVersion());
         mQueryThread[1].start();
     }
 

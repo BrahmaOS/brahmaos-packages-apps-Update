@@ -50,4 +50,9 @@
     <string name="Download_succeed">Package download finish, please click to update.</string>
     <string name="Download_failed">Package download finish, but it can not pass the verify, please check your network.</string>
 
+    <!--new version description-->
+    <string name="newversion_title">Disover new version</string>
+    <string name="brahmaos_version">"BrahmaOS Version : "</string>
+
+
 </resources>

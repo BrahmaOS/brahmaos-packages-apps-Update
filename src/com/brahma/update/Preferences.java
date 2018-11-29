@@ -18,6 +18,9 @@ public class Preferences {
 
     // access by checking task
     public static final String PREFS_DOWNLOAD_URL = "download_URL";
+
+    // access by checking task
+    public static final String PREFS_NEW_VERSION = "new_brahmsos_version";
     
     // access by checking task
     public static final String PREFS_PACKAGE_DESCRIPTOR = "package_descriptor";
@@ -95,7 +98,11 @@ public class Preferences {
     public void setPackageDescriptor(String str){
         setString(PREFS_PACKAGE_DESCRIPTOR,str);
     }
-    
+
+    public void setBrahmaosNewVersion(String str){
+        setString(PREFS_NEW_VERSION,str);
+    }
+
     public void setDownloadTarget(String target) {
         setString(PREFS_DOWNLOAD_TARGET, target);
     }
@@ -112,6 +119,11 @@ public class Preferences {
     public String getPackageDescriptor(){
         return mPrefs.getString(PREFS_PACKAGE_DESCRIPTOR, "");
     }
+
+    public String getBrahmaosNewVersion(){
+        return mPrefs.getString(PREFS_NEW_VERSION, "");
+    }
+
     @SuppressWarnings("unused")
     public long getDownloadSize() {
         return mPrefs.getLong(PREFS_DOWNLOAD_SIZE, 0);

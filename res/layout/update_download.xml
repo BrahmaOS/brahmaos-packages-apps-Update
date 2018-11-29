@@ -1,21 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/new_version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/space_normal">
+
+        <ImageView
+        android:id="@+id/discover_newversion_icon"
+        android:layout_width="@dimen/icon_normal_size"
+        android:layout_height="@dimen/icon_normal_size"
+        android:layout_marginTop="@dimen/space_xlarge"
+        android:layout_marginLeft="@dimen/space_normal"
+        android:src="@drawable/update_icon"/>
+
+        <TextView
+        android:id="@+id/new_version_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_normal"
+        android:layout_marginLeft="@dimen/space_normal"
+        android:textSize="@dimen/font_size_headline"
+        android:textStyle="bold"
+        android:text="@string/newversion_title"/>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_normal"
+        android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/brahmaos_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_normal"
+                android:textSize="@dimen/font_size_body"
+                android:text="@string/brahmaos_version" />
+
+            <TextView
+                android:id="@+id/brahmaos_version_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_size_body" />
+
+        </LinearLayout>
+    </LinearLayout>
+
     <EditText
         android:id="@+id/new_version_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/new_version"
         android:editable="false"
-        android:layout_above="@+id/cancel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/download_pause_and_update"
-        android:layout_marginLeft="22dp"
-        android:layout_marginTop="15dp" >
-        
+        android:layout_alignLeft="@+id/new_version"
+        android:layout_marginTop="@dimen/space_normal"
+        android:layout_marginLeft="@dimen/space_normal"
+        android:background="@null">
+
     </EditText>
-
+
     <Button
         android:id="@+id/cancel"
         android:layout_width="wrap_content"
@@ -33,8 +82,9 @@
         android:layout_alignBottom="@+id/cancel"
         android:layout_alignParentRight="true"
         android:text="@string/download_download"
-        android:layout_marginRight="50dp"/>
-    <ProgressBar
+        android:layout_marginRight="50dp"/>
+
+    <ProgressBar
         android:id="@+id/download_progress"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="wrap_content"
@@ -48,7 +98,7 @@
         android:id="@+id/percent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/new_version_description"
+        android:layout_above="@+id/download_progress"
         android:layout_centerHorizontal="true"
         android:visibility="gone"
         />

@@ -50,4 +50,9 @@
     <string name="Download_succeed">固件下载完成，点击进行升级</string>
     <string name="Download_failed">固件下载完成，但是校验失败，请检查网络</string>
 
+    <!--new version description-->
+    <string name="newversion_title">发现新版本</string>
+    <string name="brahmaos_version">"BrahmaOS 版本 : "</string>
+
+
 </resources>

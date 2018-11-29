@@ -56,6 +56,8 @@ import android.util.Log;
 import java.util.Locale;
 import org.json.JSONObject;
 
+import Update.src.com.brahma.update.utils.VersionTransfer;
+
 public class CheckingTask extends ThreadTask {
     private final static String TAG = "CheckingTask";
 
@@ -284,6 +286,7 @@ public class CheckingTask extends ThreadTask {
                 else if (respret == 0)
                     mErrorCode = ERROR_UNDISCOVERY_NEW_VERSION;
                 else if (respret == 1){
+                    // newversion format: "1002003"
                     String newversion = jsonresp.getJSONObject("newversion").getString("version");
                     String releaseinfo = jsonresp.getJSONObject("newversion").getString("releaseinfo");
                     sha256 = jsonresp.getJSONObject("updateinfo").getString("sha256");
@@ -291,11 +294,13 @@ public class CheckingTask extends ThreadTask {
                     command = jsonresp.getJSONObject("updateinfo").getString("command");
                     Log.i(TAG, "Get newversion: " + newversion);
                     Log.i(TAG, "Release info: " + releaseinfo);
-                    String[] checkInfo = new String[4];
+                    VersionTransfer versionTrans = new VersionTransfer(Integer.parseInt(newversion));
+                    String[] checkInfo = new String[5];
                     checkInfo[0] = sha256;
                     checkInfo[1] = zipUrl;
                     checkInfo[2] = releaseinfo;
                     checkInfo[3] = command;
+                    checkInfo[4] = versionTrans.versionString;
                     mResult = checkInfo;
                     mErrorCode = NO_ERROR;
                     // Shownewversion(newversion, release info)
@@ -334,6 +339,7 @@ public class CheckingTask extends ThreadTask {
             Log.v(TAG, "Discover new version");
             mPreferences.setDownloadTarget(UpdateService.DOWNLOAD_OTA_PATH);
             String[] result = (String[]) mResult;
+            mPreferences.setBrahmaosNewVersion(result[4]);
             mPreferences.setDownloadURL(result[1]);
             mPreferences.setSha256(result[0]);
             Intent intent= new Intent(mContext,DownloadActivity.class);
